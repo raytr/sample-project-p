@@ -15,6 +15,7 @@ type Security struct {
 }
 
 type Database struct {
+	ConnectionString        string `yaml:"connectionString" mapstructure:"connectionString"`
 	Driver                  string `yaml:"driver", mapstructure:"driver"`
 	Host                    string `yaml:"host", mapstructure:"host"`
 	Port                    string `yaml:"port" mapstructure:"port"`

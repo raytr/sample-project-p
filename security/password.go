@@ -9,7 +9,6 @@ import (
 )
 
 func Hash(pwd, key string) string {
-
 	h := hmac.New(sha1.New, []byte(key))
 	h.Write([]byte(pwd))
 	return hex.EncodeToString(h.Sum(nil))
