@@ -2,7 +2,11 @@ package entity
 
 import (
 	"errors"
+	"fmt"
+	"net/http"
 	"time"
+
+	"github.com/raytr/sample-project-p/security"
 )
 
 type User struct {
@@ -52,14 +56,24 @@ func (dto *AuthUserDTO) Validate() error {
 	if dto.Password == "" {
 		return errors.New("password is required")
 	}
-
+	return nil
 }
 
 func (t *User) ToDTO() UserDTO {
 	return UserDTO{
-		ID:        ToID(t.ID),
+		ID:        t.ID,
 		FirstName: t.FirstName,
 		LastName:  t.LastName,
 		Email:     t.Email,
 	}
+}
+
+func NewUser(user User, password, secretPepper string) {
+	user.HashPassword = security.Hash(password, secretPepper)
+
+	userID, err := h.repo.SaveUser(user)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, err)
+	}
+	fmt.Println(userID)
 }

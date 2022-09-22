@@ -5,6 +5,7 @@ import (
 )
 
 func BuildRouter(e *echo.Echo, userService userHandler) {
-	e.GET("/users", userService.GetUsers)
 	e.POST("/signup", userService.SignUp)
+	e.POST("/login", userService.SignUp)
+	e.GET("/users", userService.GetUsers)
 }
